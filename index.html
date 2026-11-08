@@ -257,6 +257,16 @@
     </a>
   </nav>
 
+  <!-- ===== Hàng mới về (lấy từ products.js) ===== -->
+  <section class="reveal">
+    <div class="h2row"><h2 class="h2">Hàng mới về</h2><a href="catalog.html">Xem tất cả →</a></div>
+    <div class="feat" id="feat"></div>
+    <a class="catalog-btn" href="catalog.html">
+      <span><b>Xem catalog sản phẩm</b><small>iPhone · Samsung · iPad · Laptop đang có tại quán</small></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+  </section>
+
   <!-- ===== Mặt tiền ===== -->
   <section class="reveal">
     <button class="hero-img" type="button" data-zoom="assets/storefront.webp" data-cap="Lộc Boong Store · 대전 서구 도마동 25-2 1층">
@@ -350,7 +360,18 @@
 </div>
 <div class="toast" id="toast">Đã sao chép địa chỉ</div>
 
+<script src="products.js"></script>
 <script>
+  // Hàng mới về
+  (function(){
+    var el=document.getElementById('feat'); if(!el||!window.LB_PRODUCTS) return;
+    var esc=function(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+    el.innerHTML=LB_PRODUCTS.filter(function(p){return p.featured}).map(function(p){
+      return '<a class="fp" href="catalog.html#'+p.cat+'"><div class="art">'+(p.tag?'<span class="tag">'+esc(p.tag)+'</span>':'')+
+        '<img src="'+esc(p.img)+'" alt="" loading="lazy"></div><div class="b"><h3>'+esc(p.name)+'</h3>'+
+        '<div class="pr'+(p.price?'':' ask')+'">'+(p.price?esc(p.price):'Inbox báo giá')+'</div></div></a>';
+    }).join('');
+  })();
   document.getElementById('yr').textContent=new Date().getFullYear();
 
   // Phóng to ảnh
